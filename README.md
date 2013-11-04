@@ -1,3 +1,7 @@
+[![Gem Version](https://badge.fury.io/rb/rspec2minitest.png)](http://badge.fury.io/rb/rspec2minitest)
+[![Dependency Status](https://gemnasium.com/cschramm/rspec2minitest.png)](https://gemnasium.com/cschramm/rspec2minitest)
+[![Code Climate](https://codeclimate.com/github/cschramm/rspec2minitest.png)](https://codeclimate.com/github/cschramm/rspec2minitest)
+
 # RSpec2MiniTest
 
 Provides a generic factory to automatically convert the RSpec matchers of your favorite
