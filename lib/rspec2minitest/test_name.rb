@@ -1,10 +1,12 @@
+require 'verbs'
+
 module RSpec2MiniTest
   class TestName
-    def initialize(matcher_name, matcher_module: nil, assertion_prefix: nil)
+    def initialize(matcher_name, matcher_module, assertion_prefix)
       extend matcher_module if matcher_module
 
       @matcher_name = matcher_name.to_s
-      @assertion_prefix = assertion_prefix
+      @assertion_prefix = assertion_prefix && "#{assertion_prefix}_" || ''
     end
 
     def matcher(*args)
@@ -13,14 +15,16 @@ module RSpec2MiniTest
 
     private
 
-    def has
-      @matcher_name.sub /^have/, 'has'
+    def conjugated
+      pieces = @matcher_name.split('_', 2)
+      pieces[0] = pieces[0].verb.conjugate(person: :third)
+      pieces.join('_')
     end
   end
 
   class PositiveTestName < TestName
     def assertion_name
-      "assert_#{@assertion_prefix && "#{@assertion_prefix}_" || ''}#{has}"
+      "assert_#{@assertion_prefix}_#{conjugated}"
     end
 
     def expectation_name
@@ -38,7 +42,7 @@ module RSpec2MiniTest
 
   class NegativeTestName < TestName
     def assertion_name
-      "refute_#{@assertion_prefix && "#{@assertion_prefix}_" || ''}#{has}"
+      "refute_#{@assertion_prefix}#{conjugated}"
     end
 
     def expectation_name

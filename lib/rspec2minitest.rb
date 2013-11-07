@@ -4,14 +4,15 @@ module RSpec2MiniTest
   module_function
 
   def add_matcher(matcher_name, matcher_module: nil, assertion_prefix: nil)
-    positive_name = RSpec2MiniTest::PositiveTestName.new(
-        matcher_name, matcher_module: matcher_module, assertion_prefix: assertion_prefix
-    )
-    negative_name = RSpec2MiniTest::NegativeTestName.new(
-        matcher_name, matcher_module: matcher_module, assertion_prefix: assertion_prefix
-    )
-    [positive_name, negative_name].each do |test_name|
-      define_expectation test_name
+    test_names = [
+        RSpec2MiniTest::PositiveTestName,
+        RSpec2MiniTest::NegativeTestName
+    ]
+
+    test_names.each do |test_name|
+      define_expectation(
+          test_name.new(matcher_name, matcher_module, assertion_prefix)
+      )
     end
   end
 
@@ -22,10 +23,10 @@ module RSpec2MiniTest
 
   def define_assertion(test_name)
     method_name = test_name.assertion_name
-    MiniTest::Assertions.send(:define_method, method_name) do |page, *args|
+    MiniTest::Assertions.send(:define_method, method_name) do |object, *args|
       matcher = test_name.matcher(*args)
 
-      matches = matcher.send test_name.match_method, page
+      matches = matcher.send test_name.match_method, object
       failure_message = message { matcher.send test_name.failure_message_method }
 
       assert matches, failure_message
