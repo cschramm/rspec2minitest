@@ -2,7 +2,8 @@
 
 ## master
 
-* Allow other major versions of MiniTest than 4
-* Allow other verbs than 'have'
-* Add add_matchers method
-* Add paperclip integration
+* Fix: Allow other major versions of MiniTest than 4
+* Fix: Allow other verbs than `have`
+* New method: `add_matchers`
+* New integration: paperclip
+* New integration: capybara

@@ -19,10 +19,7 @@ It is a generalization of [Jared Ning's capybara_minitest_spec](https://github.c
 
 To create assertions / expectations from all Capybara RSpec matchers add to your `test_helper`:
 
-    require 'rspec2minitest'
-    require 'capybara/rspec/matchers'
-
-    RSpec2MiniTest.add_matchers Capybara::RSpecMatchers, assertion_prefix: 'page'
+    require 'rspec2minitest/capybara'
 
 For the `have_text` matcher you can then use:
 
