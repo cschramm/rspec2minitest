@@ -1,6 +1,6 @@
 # Changelog
 
-## master
+## 0.2.0
 
 * Fix: Allow other major versions of MiniTest than 4
 * Fix: Allow other verbs than `have`
