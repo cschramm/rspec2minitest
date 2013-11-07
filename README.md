@@ -42,10 +42,10 @@ matchers are the only ones you need to convert, I recommend using that gem.
 ### Paperclip
 
     # test_helper
-    require 'rspec2minitest'
-    require 'paperclip/matchers'
+    require 'rspec2minitest/paperclip'
 
-    RSpec2MiniTest.add_matchers Paperclip::Shoulda::Matchers, assertion_prefix: 'model'
+The `have_attachment` matcher gets converted to `assert_model_has_attachment`
+and `must_have_attachment` and their negative counterparts.
 
 For all matchers see [Paperclip::Shoulda::Matchers](http://rubydoc.info/gems/paperclip/Paperclip/Shoulda/Matchers)
 
@@ -56,3 +56,7 @@ within your test_helper. `require 'rspec2minitest'` provides you with an
 RSpec2MiniTest module that provides an `add_matcher` function to convert
 single matchers and an `add_matchers` function to convert all public instance
 methods of a given module.
+
+Have a look at the integrations in `lib/rspec2minitest` for examples and do
+not forget to issue a pull request to add `lib/rspec2minitest/#{gemname}.rb`
+to the rspec2minitest spec. :)
