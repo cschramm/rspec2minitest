@@ -16,6 +16,16 @@ module RSpec2MiniTest
     end
   end
 
+  module_function
+
+  def add_matchers(matcher_module, assertion_prefix: nil)
+    matcher_module.public_instance_methods.each do |matcher_name|
+      add_matcher matcher_name,
+                  matcher_module: matcher_module,
+                  assertion_prefix: assertion_prefix
+    end
+  end
+
   def define_expectation(test_name)
     define_assertion test_name
     infect_assertion test_name
